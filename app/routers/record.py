@@ -12,7 +12,13 @@ router = APIRouter(
 
 @router.post("/")
 def create_record(record:RecordCreate,db:Session=Depends(get_db)):
-    new_record = Record(amount=record.amount,type=record.type,category=record.category,user_id=record.user_id)
+    new_record = Record(
+        amount=record.amount,
+        type=record.type,
+        category=record.category,
+        date=record.date,
+        description=record.description
+    )
     db.add(new_record)
     db.commit()
     db.refresh(new_record)
